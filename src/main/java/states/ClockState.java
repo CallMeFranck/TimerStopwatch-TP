@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 public abstract class ClockState {
 
     private static final Logger logger = LoggerFactory.getLogger(ClockState.class);
+
+    private boolean isRinging;
 	
     public abstract ClockState left(); // button 1 pressed
     public String getLeftText() { return "change mode"; } // text to display on button 1
@@ -30,16 +32,23 @@ public abstract class ClockState {
     
     // entry and exit and do actions can be redefined by, and are only visible to, substates
     protected void entry() {
+        isRinging = true;
     	// the entry action of the state, which is empty (no action) by default
         logger.info("entering " + this.getClass().getName()); };
     	
     protected void exit() {
+        isRinging = false;
     	// the exit action of the state, which is empty (no action) by default
         logger.info("exiting " + this.getClass().getName()); };
     	
     protected ClockState doIt() {
     	// specific behaviour to be implemented in each state.
     	// Will be called on each tick()
+        if (isRinging) {
+            logger.info("Le timer est en sonnerie.");
+        } else {
+            logger.info("Le timer n'est pas en sonnerie.");
+        }
     	return this; } 
        
 }
