@@ -35,6 +35,7 @@ public abstract class ClockState {
         isRinging = true;
     	// the entry action of the state, which is empty (no action) by default
         logger.info("entering " + this.getClass().getName()); };
+
     	
     protected void exit() {
         isRinging = false;
